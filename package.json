@@ -1,4 +1,11 @@
 {
+  "name": "trie-search",
+  "description": "A flexible implementation of a trie (prefix tree) to let you efficiently find partial and complete matches of stored values. A trie is a tree-like data structure, also referred to as a prefix tree, that enables optimized searching for specific keys from a set. For detailed information on tries, I'd recommend checking out:",
+  "version": "1.0.0",
+  "exports": "./build/src/index.js",
+  "directories": {
+    "test": "test"
+  },
   "devDependencies": {
     "@types/jest": "^29.0.3",
     "@types/node": "^18.7.16",
@@ -6,6 +13,17 @@
     "ts-jest": "^29.0.1"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "npx tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkg808/trie-search.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tkg808/trie-search/issues"
   }
 }
