@@ -21,9 +21,16 @@
     "type": "git",
     "url": "git+https://github.com/tkg808/trie-search.git"
   },
-  "keywords": [],
+  "keywords": [
+    "trie",
+    "prefix",
+    "tree",
+    "search",
+    "autocomplete",
+    "typeahead"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tkg808/trie-search/issues"
   },
