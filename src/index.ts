@@ -107,17 +107,17 @@ module.exports = class Trie
   }
 
   // Time O(n + m) => n is the length of prefix, m is the limit
-  findMatches(prefix: string, limit?: number): string[]
+  getMatches(prefix: string, limit?: number): string[]
   {
     // Check limit is valid
     if (limit && limit <= 0) return [];
 
-    // Search dictionary
+    // Search Trie
     let curr = this.#root;
 
     for (let char of prefix)
     {
-      // No paths for this char => No matches
+      // No paths for this char => No matches for the given prefix
       if (!curr.nodes[char]) return [];
 
       curr = curr.nodes[char];
