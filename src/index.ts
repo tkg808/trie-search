@@ -1,6 +1,6 @@
-class DictionaryNode
+class TrieNode
 {
-  nodes: { [key: string]: DictionaryNode };
+  nodes: { [key: string]: TrieNode };
   matches: string[];
   isEnd: boolean;
 
@@ -12,15 +12,15 @@ class DictionaryNode
   }
 }
 
-module.exports = class Dictionary
+module.exports = class Trie
 {
   // private
-  #root: DictionaryNode;
+  #root: TrieNode;
   #options: string[];
 
   constructor(arr: string[])
   {
-    this.#root = new DictionaryNode();
+    this.#root = new TrieNode();
     this.#options = [];
 
     // Sort the given input so that matches are returned in sorted order
@@ -47,7 +47,7 @@ module.exports = class Dictionary
       if (!curr.nodes[char])
       {
         // No existing path => Add new path
-        curr.nodes[char] = new DictionaryNode();
+        curr.nodes[char] = new TrieNode();
       }
 
       // Add word to all sets of matches along the path
