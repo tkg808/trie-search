@@ -61,8 +61,8 @@ module.exports = class Trie
     curr.isEnd = true;
   }
 
-  // Time O(1)
-  getOptions(): string[]
+  // Time O(n) => n is the number keys in the trie
+  getAll(): string[]
   {
     return [...this.#options];
   }
