@@ -67,24 +67,24 @@ module.exports = class Trie
     return [...this.#options];
   }
 
-  // Time O(n) => n is the length of prefix
-  hasWord(word: string): boolean
+  // Time O(n) => n is the length of key
+  hasKey(key: string): boolean
   {
     // Check input is valid
-    if (word.length === 0) return false;
+    if (key.length === 0) return false;
 
-    // Search dictionary
+    // Search Trie
     let curr = this.#root;
 
-    for (let char of word)
+    for (let char of key)
     {
-      // No paths for this char => No matches
+      // No paths for this char => key does not exist
       if (!curr.nodes[char]) return false;
 
       curr = curr.nodes[char];
     }
 
-    // If this node marks the end of a word => Returns true
+    // If this node marks the end of a key => Returns true
     return curr.isEnd;
   }
 
