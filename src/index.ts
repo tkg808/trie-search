@@ -91,12 +91,12 @@ module.exports = class Trie
   // Time O(n) => n is the length of prefix
   hasPrefix(prefix: string): boolean
   {
-    // Search dictionary
+    // Search Trie
     let curr = this.#root;
 
     for (let char of prefix)
     {
-      // No paths for this char => No matches
+      // No paths for this char => No matches for the given prefix
       if (!curr.nodes[char]) return false;
 
       curr = curr.nodes[char];
