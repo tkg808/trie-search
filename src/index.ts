@@ -31,33 +31,33 @@ module.exports = class Trie
     }
   }
 
-  // Time O(n) => n is the length of prefix
-  #insert(word: string): void
+  // Time O(n) => n is the length of key
+  #insert(key: string): void
   {
-    if (word.length === 0) return;
+    if (key.length === 0) return;
 
     // Add to options
-    this.#options.push(word);
+    this.#options.push(key);
 
-    // Search dictionary
+    // Search Trie
     let curr = this.#root;
 
-    for (let char of word)
+    for (let char of key)
     {
       if (!curr.nodes[char])
       {
-        // No existing path => Add new path
+        // No existing path => Add new node to path
         curr.nodes[char] = new TrieNode();
       }
 
-      // Add word to all sets of matches along the path
-      curr.matches.push(word);
+      // Add key to all sets of matches along the path
+      curr.matches.push(key);
       curr = curr.nodes[char];
     }
 
-    // Add word to the set of matches at the end of the path
-    curr.matches.push(word);
-    // Mark this node as the end of a word for searching purposes
+    // Add key to the set of matches at the end of the path
+    curr.matches.push(key);
+    // Mark this node as the end of a key for searching purposes
     curr.isEnd = true;
   }
 
