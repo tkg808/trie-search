@@ -18,20 +18,15 @@ Now consider an array of length m, arr, containing strings of length n, and we w
 
 Now instead of using the string-to-array approach, which can be costly with frequent searching, we can perform the same search in linear time by using a trie.
 
-- So let's say we have the following array:
+So let's say we have the following array:
 
 > let arr = ["team", "tree", "trie"];
 
-- The trie for arr would look something like the following tree:
+The trie for arr would look something like the following tree:
 
-![trie-example](https://ibb.co/30scXrS)
+&emsp;![trie-example](https://i.imgur.com/nNFJNdZ.png)
 
-- Now say we perform a search to see if "tree" exists in the trie. We simply traverse the nodes of the tree for each character in "tree". The result is either we reach the end of a path and the word exists
-
-For more information on tries, I'd recommend checking out:
-
-> https://brilliant.org/wiki/tries/
-
+Now we can perform a search for a key by traversing the nodes of the tree for each character of the key. The result is either we are able to find a path that contains all characters in the key, or the key does not exist in the trie. Therefore, we have a search with a linear time complexity O(n).
 
 # Installation
 
@@ -41,49 +36,58 @@ npm i @tkg808/trie-search
 
 # Usage
 
-Importing Trie-Search gives you a class implementation
+Importing Trie-Search gives you the Trie class:
 
-> const Dictionary = require("@tkg808/trie-search");
+> const Trie = require("@tkg808/trie-search");
 
-# Methods
-- getOptions: array -- get all keys stored in the trie
-- hasWord: boolean -- check if a key exists in the trie
-- hasPrefix: boolean -- check if a key that matches a prefix exists in the trie
-- findMatches: array -- get all keys that match a given prefix
+## Methods
+  
+### *getAll()*
+- Get all keys stored in the trie
+- No parameters
+- Returns an array of strings
 
-## Array of Strings
+### *hasKey(key)*
+- Check if a given string completely matches any keys in the trie
+- *key* -- required string parameter
+- Returns a boolean
+  
+### *hasPrefix(prefix)*
+- Check if a given string partially matches any keys in the trie
+- *prefix* -- required string parameter
+- Returns a boolean
+
+### *getMatches(prefix, limit)*
+- Get all keys that partially match a given string with ability to limit the number of matches returned
+- *prefix* -- required string parameter
+- *limit* -- optional integer parameter
+- Returns an array of strings
+
+## Example
 
 ```
-const Dictionary = require("../src/index");
+const Trie = require("@tkg808/trie-search");
 const states = ["Colorado", "Texas", "California", "Florida"];
+const statesTrie = new Trie(states);
 
-const statesDictionary = new Dictionary(states);
+statesTrie.getAll(); // returns ["Colorado", "Texas", "California", "Florida"]
 
-statesDictionary.hasWord("California"); // returns true
-statesDictionary.hasWord("california"); // returns false
-statesDictionary.hasPrefix("Cal"); // returns true
-statesDictionary.findMatches(""); // returns ["California, "Colorado", "Florida", "Texas"]
-statesDictionary.findMatches("", 3) // returns ["California, "Colorado", "Florida"]
-statesDictionary.findMatches("C"); // returns ["California, "Colorado"]
-statesDictionary.findMatches("Co"); // returns ["Colorado"]
-statesDictionary.findMatches("Coa"); // returns []
+statesTrie.hasKey("California"); // complete match -> returns true
+statesTrie.hasKey("Cal"); // only a partial match -> returns false
+statesTrie.hasKey("california"); // case-sensitive -> returns false
+statesTrie.hasKey(""); // empty string -> returns false
+
+statesTrie.hasPrefix("California"); // partial and complete match -> returns true
+statesTrie.hasPrefix("Cal"); // partial match -> returns true
+statesTrie.hasPrefix("cal"); // case-sensitive -> returns false
+statesTrie.hasPrefix(""); // empty string -> returns true
+
+statesTrie.getMatches(""); // no limit -> returns ["California, "Colorado", "Florida", "Texas"]
+statesTrie.getMatches("", 3) // limit included -> returns ["California, "Colorado", "Florida"]
+statesTrie.getMatches("C"); // returns ["California, "Colorado"]
+statesTrie.getMatches("Co"); // returns ["Colorado"]
+statesTrie.getMatches("Coa"); // returns []
 ```
-
-## Array of Objects
-
-For an array of objects, you can abstract an identifying key and store them in the trie
-'''
-const Dictionary = require("../src/index");
-const states = [
-  {name: "Colorado", capital: "Denver", ...},
-  {name: "Texas", capital: "Austin", ...},
-  {name: "California", capital: "Sacramento", ...},
-  {name: "Florida", capital: "Tallahassee", ...},
-];
-const names = states.map(state => state.name);
-
-const statesDictionary = new Dictionary(names);
-'''
 
 # Contribution Guidelines
 
@@ -91,6 +95,11 @@ const statesDictionary = new Dictionary(names);
 
 Feel free to contribute to this package with code or suggestions. If you would like to contribute code - install the package, checkout to a new branch from dev, play with the code, then submit a pull request. Otherwise, you can submit an issue on the repo detailing your suggestion.
 
-## How to Identify Bugs
+## How to Submit Bugs
 
 You can submit an issue on the git repo. You can also checkout to a new branch from dev, implement a solution, and then submit a pull request. Please include detailed description of the bug and your proposed solution as best as possible.
+
+# Future Features
+
+- Support for optional case-sensitivity
+- Update parameter structure to allow multiple options
