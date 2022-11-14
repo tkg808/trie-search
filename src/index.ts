@@ -16,15 +16,15 @@ module.exports = class Trie
 {
   // private
   #root: TrieNode;
-  #options: string[];
+  #keys: string[];
 
   constructor(arr: string[])
   {
     this.#root = new TrieNode();
-    this.#options = [];
+    this.#keys = [];
 
     // Sort the given input so that matches are returned in sorted order
-    // Time O(m*nlogn) => n is arr length, m is longest element's length
+    // Time O(nlogn) => n is arr length
     for (let val of arr.sort())
     {
       this.#insert(val);
@@ -36,8 +36,8 @@ module.exports = class Trie
   {
     if (key.length === 0) return;
 
-    // Add to options
-    this.#options.push(key);
+    // Add to keys
+    this.#keys.push(key);
 
     // Search Trie
     let curr = this.#root;
@@ -64,7 +64,7 @@ module.exports = class Trie
   // Time O(n) => n is the number keys in the trie
   getAll(): string[]
   {
-    return [...this.#options];
+    return [...this.#keys];
   }
 
   // Time O(n) => n is the length of key
@@ -123,7 +123,7 @@ module.exports = class Trie
       curr = curr.nodes[char];
     }
 
-    // If prefix is empty => Finds all options
+    // If prefix is empty => Returns all keys
     // If no limit => Returns all matches found
     return curr.matches.slice(0, limit);
   }
